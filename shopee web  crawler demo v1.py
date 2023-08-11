@@ -42,6 +42,18 @@ def find_index(lst):
             return index
     return '無資料'
 
+def find_place_name(y):
+    for edf, place_name in enumerate(y):
+        if '市' in place_name or '縣' in place_name or place_name == '中國大陸':
+            return edf
+    return '無資料'
+
+def find_Sales_volume(z):
+    for ghi,Sales_volume_name in enumerate(z):
+        if '已售出' in Sales_volume_name:
+            return ghi
+    return '無資料'
+
 print('~~~~~~~~~~~開始爬蟲~~~~~~~~~~~')
 container_product = pd.DataFrame()
 tStart = time.time()#計時開始
@@ -51,6 +63,8 @@ for i in tqdm(range(int(page))): #tqdm=進度條 for迴圈跑page次
     name = []
     link = []
     price = []
+    place_of_goods = []
+    Sales_volume = []
     driver.get('https://shopee.tw/search?keyword=' + keyword + '&page=' + str(i))
     time.sleep(random.randint(5,10))
     try:
@@ -98,9 +112,28 @@ for i in tqdm(range(int(page))): #tqdm=進度條 for迴圈跑page次
         result = find_index(thecut)
         if result != '無資料' :
             theprice = thecut[result]
-            print(theprice)
-            
+        else:
+            theprice = '暫無資料'
+
+        something = None
+        something = find_place_name(thecut)
+        if something != '無資料':
+            theplaceofgoods = thecut[something]
+            if '000' in theplaceofgoods:
+                theplaceofgoods = theplaceofgoods.replace('000','萬')
+        else:
+            theplaceofgoods = '暫無資料'
+
+        something2 = None
+        something2 = find_Sales_volume(thecut)
+        if something2 != '無資料' :
+            thesalesvolume = thecut[something2]
+        else:
+            thesalesvolume = '暫無資料'
+
+        place_of_goods.append(theplaceofgoods)
         price.append(theprice)
+        Sales_volume.append(thesalesvolume)
         
     dic = {
     '商品ID':itemid,
@@ -108,6 +141,8 @@ for i in tqdm(range(int(page))): #tqdm=進度條 for迴圈跑page次
     '商品名稱':name,
     '商品連結':link,
     '價格':price,
+    '出貨地':place_of_goods,
+    '銷售量':Sales_volume
     }
     #資料整合
     container_product = pd.concat([container_product,pd.DataFrame.from_dict(dic,orient='index')], axis=0)
@@ -121,7 +156,6 @@ for i in tqdm(range(int(page))): #tqdm=進度條 for迴圈跑page次
     getData.to_csv('C:/example/'+keyword +str(i+1)+'_商品資料.csv', index=False) #@@@@
 
 os.rename('C:/example/'+keyword +str(page)+'_商品資料.csv','C:/example/'+keyword+'_完整商品資料.xlsx') #@@@@
-
 tEnd = time.time()#計時結束
 totalTime = int(tEnd - tStart)
 minute = totalTime // 60
