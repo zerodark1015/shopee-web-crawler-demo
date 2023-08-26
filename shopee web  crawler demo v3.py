@@ -26,7 +26,6 @@ service = ChromeService(executable_path=ChromeDriverManager().install())
 options = webdriver.ChromeOptions()
 prefs = {"profile.default_content_setting_values.notifications" : 2}
 options.add_experimental_option("prefs",prefs)
-tStart = time.time()#計時開始
 #開啟視窗
 options.add_argument('blink-settings=imagesEnabled=false')
 driver = webdriver.Chrome()
