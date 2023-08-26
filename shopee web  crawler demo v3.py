@@ -256,7 +256,7 @@ time.sleep(2)
 print('~~~~~~~~~開始進行爬蟲~~~~~~~~~')
 tStart = time.time()#計時開始
 itemDetail = ''
-getlostData = pd.read_csv('C:/example/'+keyword+'第一階段商品資料.csv')
+getlostData = pd.read_csv('C:/example/'+keyword+'第一階段商品資料.csv')　#@@@@
 for r in tqdm(range(len(getlostData))):
     data = []
     data.append(getlostData.iloc[r]['商品連結'])
@@ -312,7 +312,7 @@ for g in range(len(getlostData)):
         print(getlostData.iloc[g]['價格'])
         print(getlostData.iloc[g]['出貨地'])
         getlostData = getlostData.drop(l)
-getlostData.to_csv('C:/example/'+keyword+'第二階段商品資料.csv', index=False)
+getlostData.to_csv('C:/example/'+keyword+'第二階段商品資料.csv', index=False)　#@@@@
 tEnd = time.time()#計時結束
 totalTime = int(tEnd - tStart)
 minute = totalTime // 60
