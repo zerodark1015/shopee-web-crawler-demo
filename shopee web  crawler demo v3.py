@@ -46,7 +46,7 @@ def login(Email,password):
     Email = driver.find_element("name","loginKey")
     Email.send_keys("your shopee email")   #@@@@
     password = driver.find_element("name","password")
-    password.send_keys("your shopee name") #@@@@
+    password.send_keys("your shopee password") #@@@@
     password.send_keys(Keys.RETURN)
     
 def find_index(x):
