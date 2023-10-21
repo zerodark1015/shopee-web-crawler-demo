@@ -242,7 +242,7 @@ for i in tqdm(range(int(page))): #tqdm=進度條 for迴圈跑page次
     getData.columns = getData.iloc[0]
     getData = getData[1:]
     getData.to_csv('C:/example/'+keyword +str(i+1)+'_商品資料.csv', index=False) #@@@@
-os.rename('C:/example/'+keyword +str(page)+'_商品資料.csv','C:/example/'+keyword+'第一階段商品資料.csv') #@@@@
+os.rename('C:/example/'+keyword +str(page)+'_商品資料.csv','C:/example/'+keyword+'第一階段商品資料.csv')#@@@@
 
 tEnd = time.time()#計時結束
 totalTime = int(tEnd - tStart)
@@ -311,7 +311,7 @@ for g in range(len(getlostData)):
         print(getlostData.iloc[g]['價格'])
         print(getlostData.iloc[g]['出貨地'])
         getlostData = getlostData.drop(l)
-getlostData.to_csv('C:/example/'+keyword+'第二階段商品資料.csv', index=False)　#@@@@
+getlostData.to_csv('C:/example/'+keyword+'第二階段商品資料.csv', index=False)#@@@@
 tEnd = time.time()#計時結束
 totalTime = int(tEnd - tStart)
 minute = totalTime // 60
