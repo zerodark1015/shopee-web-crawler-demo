@@ -47,9 +47,9 @@ def has_digit(input_string):
 
 def login(Email,password):
     Email = driver.find_element("name","loginKey")
-    Email.send_keys("xji61i7y3@gmail.com")
+    Email.send_keys("your mail")
     password = driver.find_element("name","password")
-    password.send_keys("Roboco1234")
+    password.send_keys("your password")
     password.send_keys(Keys.RETURN)
     
 def find_index(x):
